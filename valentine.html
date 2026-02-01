@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Question ❤️</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: auto;
+            padding: 20px;
+        }
+
+        /* Mobile warning message */
+        .mobile-warning {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            z-index: 1000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .mobile-warning i {
+            font-size: 4rem;
+            color: #ff4d6d;
+            margin-bottom: 20px;
+        }
+
+        .mobile-warning h2 {
+            color: #ff4d6d;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .mobile-warning p {
+            color: #333;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            position: relative;
+            z-index: 10;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            color: #ff4d6d;
+            font-size: 3.2rem;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            line-height: 1.2;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        button {
+            padding: 22px 60px;
+            font-size: 2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            min-width: 180px;
+        }
+
+        #yesBtn {
+            background: linear-gradient(to right, #4CAF50, #45a049);
+            color: white;
+            border: 3px solid #388E3C;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        #noBtn {
+            background: linear-gradient(to right, #ff4d6d, #ff6b81);
+            color: white;
+            border: 3px solid #d32f2f;
+            position: relative;
+            transition: all 0.1s ease;
+        }
+
+        .heart {
+            color: #ff4d6d;
+            font-size: 2.2rem;
+            margin: 0 10px;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Celebration styles - OPTIMIZED FOR TALL IMAGES */
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .celebration-content {
+            background: linear-gradient(135deg, #fff5f7, #fff);
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            animation: popIn 0.5s ease-out;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 8px solid #ffafbd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px auto;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.7); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* OPTIMIZED FOR PORTRAIT IMAGES (899x1599) */
+        .photo-frame {
+            width: 100%;
+            max-width: 320px; /* Adjusted for portrait */
+            height: 570px; /* Maintains 899x1599 aspect ratio */
+            margin: 15px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 10px solid #ffafbd;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            background: #f8f8f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Changed back to cover for better filling */
+            background-color: #f0f0f0;
+        }
+
+        .i-knew-it {
+            font-size: 3rem;
+            color: #ff4d6d;
+            margin: 10px 0;
+            animation: colorChange 2s infinite alternate, bounce 1s infinite alternate;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        @keyframes colorChange {
+            0% { color: #ff4d6d; }
+            100% { color: #ff8fab; }
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #f00;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        .message {
+            font-size: 1.5rem;
+            color: #333;
+            margin-top: 15px;
+            line-height: 1.4;
+            font-weight: 600;
+            text-align: center;
+            padding: 0 5px;
+        }
+
+        .instructions {
+            margin-top: 30px;
+            font-size: 1.2rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Close button styling */
+        #closeBtn {
+            margin-top: 20px;
+            background: linear-gradient(to right, #ff4d6d, #ff6b81);
+            color: white;
+            padding: 12px 35px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            border: 3px solid #d32f2f;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #closeBtn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4);
+        }
+
+        /* Responsive design adjustments for tall images */
+        @media (max-width: 1024px) {
+            .container {
+                max-width: 700px;
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            button {
+                padding: 20px 50px;
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Show mobile warning and hide main content */
+            .mobile-warning {
+                display: flex;
+            }
+            
+            .container, .celebration {
+                display: none;
+            }
+        }
+
+        /* Desktop-specific optimizations */
+        @media (min-width: 769px) {
+            .mobile-warning {
+                display: none;
+            }
+        }
+
+        /* For screens with limited height */
+        @media (max-height: 800px) {
+            .celebration-content {
+                margin: 10px auto;
+                padding: 20px;
+            }
+            
+            .photo-frame {
+                max-width: 280px;
+                height: 500px;
+            }
+            
+            .i-knew-it {
+                font-size: 2.5rem;
+                margin: 8px 0;
+            }
+            
+            .message {
+                font-size: 1.3rem;
+                margin-top: 10px;
+            }
+            
+            #closeBtn {
+                margin-top: 15px;
+                padding: 10px 30px;
+                font-size: 1.1rem;
+            }
+        }
+
+        /* For very short screens */
+        @media (max-height: 650px) {
+            .photo-frame {
+                max-width: 240px;
+                height: 430px;
+            }
+            
+            .celebration-content {
+                padding: 15px;
+            }
+        }
+
+        /* For wide screens with good height */
+        @media (min-width: 1200px) and (min-height: 800px) {
+            .celebration-content {
+                max-width: 550px;
+            }
+            
+            .photo-frame {
+                max-width: 360px;
+                height: 640px;
+            }
+            
+            .i-knew-it {
+                font-size: 3.2rem;
+            }
+            
+            .message {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile warning (shown only on mobile) -->
+    <div class="mobile-warning">
+        <i class="fas fa-desktop"></i>
+        <h2>Desktop Experience Required ❤️</h2>
+        <p>This Valentine's surprise is specially designed for a desktop computer!</p>
+        <p>Please open this page on a laptop or desktop computer for the full magical experience.</p>
+        <p>The escaping button, animations, and celebration effects work best with a mouse cursor.</p>
+        <p style="margin-top: 30px; font-size: 1.5rem; color: #ff4d6d;">
+            <i class="fas fa-heart"></i> Can't wait to show you on a bigger screen! <i class="fas fa-heart"></i>
+        </p>
+    </div>
+
+    <!-- Main content (hidden on mobile) -->
+    <div class="container">
+        <h1>Will you be my Valentine? <i class="heart fas fa-heart"></i></h1>
+        
+        <div class="buttons">
+            <button id="yesBtn">YES!</button>
+            <button id="noBtn">No</button>
+        </div>
+        
+        <div class="instructions">
+            <p>Go ahead, try to click "No"... if you can catch it! 😉</p>
+            <p style="margin-top: 10px; font-size: 1rem; color: #888;">(Best experienced with a mouse)</p>
+        </div>
+    </div>
+
+    <!-- Celebration Popup - OPTIMIZED FOR TALL IMAGES -->
+    <div class="celebration" id="celebration">
+        <div class="celebration-content">
+            <h2 class="i-knew-it">I Knew It! ❤️</h2>
+            
+            <div class="photo-frame">
+                <!-- Your portrait photo (899x1599) will display perfectly -->
+                <img src="photo.jpeg" alt="Our Special Photo" id="ourPhoto">
+            </div>
+            
+            <p class="message">
+                Happy Valentine's, my love! <br>
+                <br>
+                I LOVE YOU THE MOST!💖
+            </p>
+            
+            <button id="closeBtn">Close Celebration</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const celebration = document.getElementById('celebration');
+            const closeBtn = document.getElementById('closeBtn');
+            const ourPhoto = document.getElementById('ourPhoto');
+            
+            let escapeCount = 0;
+            const escapeMessages = [
+                "Try again! 😜",
+                "You can't escape!",
+                "I'm a slippery button!",
+                "Catch me if you can!",
+                "Almost... but not quite!",
+                "You're getting closer!",
+                "One more try?",
+                "Okay, last chance!",
+                "Alright, you win! Just kidding!",
+                "Fine, I'll stay still... NOT!"
+            ];
+            
+            // Make the "No" button escape from cursor - IMPROVED
+            noBtn.addEventListener('mouseover', function() {
+                escapeCount++;
+                
+                // Get viewport dimensions
+                const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+                const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+                
+                // Get button dimensions
+                const btnWidth = noBtn.offsetWidth;
+                const btnHeight = noBtn.offsetHeight;
+                
+                // Calculate safe area (keep button fully visible)
+                const margin = 20;
+                const maxX = vw - btnWidth - margin;
+                const maxY = vh - btnHeight - margin;
+                
+                // Generate random position within safe area
+                const randomX = Math.max(margin, Math.floor(Math.random() * maxX));
+                const randomY = Math.max(margin, Math.floor(Math.random() * maxY));
+                
+                // Apply new position
+                noBtn.style.position = 'fixed';
+                noBtn.style.left = `${randomX}px`;
+                noBtn.style.top = `${randomY}px`;
+                noBtn.style.zIndex = '1000';
+                
+                // Adjust transition speed based on escape count
+                const transitionSpeed = Math.max(0.1, 0.3 - (escapeCount * 0.02));
+                noBtn.style.transition = `left ${transitionSpeed}s ease, top ${transitionSpeed}s ease`;
+                
+                // Change button text
+                const messageIndex = Math.min(escapeCount - 1, escapeMessages.length - 1);
+                noBtn.textContent = escapeMessages[messageIndex];
+                
+                // Make button smaller gradually
+                const scale = Math.max(0.5, 1 - (escapeCount * 0.05));
+                noBtn.style.transform = `scale(${scale})`;
+                
+                // Make it rotate sometimes for extra fun
+                if (escapeCount % 3 === 0) {
+                    noBtn.style.transform += ` rotate(${Math.random() * 20 - 10}deg)`;
+                }
+            });
+            
+            // If somehow she manages to click the No button
+            noBtn.addEventListener('click', function() {
+                document.querySelector('.i-knew-it').textContent = "You caught me! ❤️";
+                document.querySelector('.message').innerHTML = 
+                    "Even when you try to say no, I know you mean yes! <br> Happy Valentine's Day, my love! 💖";
+                showCelebration();
+            });
+            
+            // Yes button click handler
+            yesBtn.addEventListener('click', showCelebration);
+            
+            // Close celebration popup
+            closeBtn.addEventListener('click', function() {
+                celebration.style.display = 'none';
+                document.querySelector('.container').style.display = 'flex';
+            });
+            
+            function showCelebration() {
+                // Hide main container
+                document.querySelector('.container').style.display = 'none';
+                
+                // Show celebration with smooth transition
+                celebration.style.display = 'flex';
+                setTimeout(() => {
+                    celebration.style.opacity = '1';
+                }, 10);
+                
+                // Create confetti effect
+                createConfetti();
+                
+                // Play celebration sound
+                playCelebrationSound();
+            }
+            
+            function createConfetti() {
+                const colors = ['#ff4d6d', '#4CAF50', '#FFC107', '#2196F3', '#9C27B0', '#FF5722', '#E91E63'];
+                
+                for (let i = 0; i < 150; i++) {
+                    setTimeout(() => {
+                        const confetti = document.createElement('div');
+                        confetti.className = 'confetti';
+                        
+                        // Random properties
+                        const color = colors[Math.floor(Math.random() * colors.length)];
+                        const size = Math.random() * 15 + 5;
+                        const left = Math.random() * 100;
+                        const animationDelay = Math.random() * 0.5;
+                        const animationDuration = Math.random() * 2 + 2;
+                        
+                        // Apply styles
+                        confetti.style.backgroundColor = color;
+                        confetti.style.width = `${size}px`;
+                        confetti.style.height = `${size}px`;
+                        confetti.style.left = `${left}vw`;
+                        confetti.style.top = '-20px';
+                        confetti.style.opacity = '1';
+                        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                        
+                        // Animation
+                        confetti.style.animation = `fall ${animationDuration}s linear ${animationDelay}s forwards`;
+                        
+                        // Add to celebration container
+                        celebration.appendChild(confetti);
+                        
+                        // Remove confetti after animation
+                        setTimeout(() => {
+                            if (confetti.parentNode) {
+                                confetti.parentNode.removeChild(confetti);
+                            }
+                        }, (animationDelay + animationDuration) * 1000);
+                    }, i * 20);
+                }
+                
+                // Add CSS for falling animation
+                const style = document.createElement('style');
+                if (!document.querySelector('#confetti-style')) {
+                    style.id = 'confetti-style';
+                    style.textContent = `
+                        @keyframes fall {
+                            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+                            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+            }
+            
+            function playCelebrationSound() {
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    
+                    // Play a cheerful melody
+                    const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+                    
+                    notes.forEach((note, index) => {
+                        setTimeout(() => {
+                            const oscillator = audioContext.createOscillator();
+                            const gainNode = audioContext.createGain();
+                            
+                            oscillator.connect(gainNode);
+                            gainNode.connect(audioContext.destination);
+                            
+                            oscillator.frequency.setValueAtTime(note, audioContext.currentTime);
+                            oscillator.type = 'sine';
+                            
+                            gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+                            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                            
+                            oscillator.start(audioContext.currentTime);
+                            oscillator.stop(audioContext.currentTime + 0.5);
+                        }, index * 150);
+                    });
+                } catch (e) {
+                    console.log("Audio not supported");
+                }
+            }
+            
+            // Handle photo loading
+            ourPhoto.onload = function() {
+                console.log("Portrait photo (899x1599) loaded successfully!");
+                // Add a subtle glow to the photo
+                this.style.boxShadow = 'inset 0 0 15px rgba(255, 77, 109, 0.2)';
+            };
+            
+            ourPhoto.onerror = function() {
+                console.log("Photo failed to load");
+                this.style.display = 'none';
+                const photoFrame = document.querySelector('.photo-frame');
+                photoFrame.innerHTML = `
+                    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; color: #ff4d6d; padding: 20px; text-align: center;">
+                        <i class="fas fa-heart-broken" style="font-size: 2.5rem; margin-bottom: 15px;"></i>
+                        <p style="font-size: 1.1rem; margin-bottom: 10px;">Photo not found!</p>
+                        <p style="font-size: 0.8rem;">Make sure 'photo.jpeg' is in the same folder</p>
+                        <p style="font-size: 0.8rem; margin-top: 5px;">and refresh the page</p>
+                    </div>
+                `;
+            };
+            
+            // Check if on mobile and show warning
+            function checkIfMobile() {
+                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
+                
+                if (isMobile) {
+                    document.querySelector('.mobile-warning').style.display = 'flex';
+                    document.querySelector('.container').style.display = 'none';
+                    if (celebration.style.display === 'flex') {
+                        celebration.style.display = 'none';
+                    }
+                }
+            }
+            
+            // Initial check
+            checkIfMobile();
+            
+            // Also check on resize
+            window.addEventListener('resize', checkIfMobile);
+        });
+    </script>
+</body>
+</html>
