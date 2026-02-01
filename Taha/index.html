@@ -6,618 +6,88 @@
     <title>Will You Be My Valentine? ❤️</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            overflow-x: hidden;
-        }
-
-        /* Mobile warning */
-        .mobile-warning {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
-            z-index: 1000;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 30px;
-        }
-
-        .mobile-warning i {
-            font-size: 4rem;
-            color: #ff4d6d;
-            margin-bottom: 20px;
-        }
-
-        .mobile-warning h2 {
-            color: #ff4d6d;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .mobile-warning p {
-            color: #333;
-            font-size: 1.2rem;
-            line-height: 1.6;
-            max-width: 600px;
-            margin-bottom: 30px;
-        }
-
-        /* Main container */
-        .container {
-            max-width: 800px;
-            width: 100%;
-            text-align: center;
-            padding: 40px 30px;
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 25px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-            position: relative;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        h1 {
-            color: #ff4d6d;
-            font-size: 3.5rem;
-            margin-bottom: 50px;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
-            line-height: 1.2;
-            padding: 0 20px;
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            margin-top: 60px;
-            position: relative;
-            width: 100%;
-        }
-
-        .valentine-btn {
-            padding: 25px 70px;
-            font-size: 2.2rem;
-            border: none;
-            border-radius: 60px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: bold;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            min-width: 220px;
-            position: relative;
-            z-index: 5;
-        }
-
-        #yesBtn {
-            background: linear-gradient(145deg, #4CAF50, #45a049);
-            color: white;
-            border: 4px solid #388E3C;
-        }
-
-        #yesBtn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 15px 30px rgba(76, 175, 80, 0.4);
-        }
-
-        #noBtn {
-            background: linear-gradient(145deg, #ff4d6d, #ff6b81);
-            color: white;
-            border: 4px solid #d32f2f;
-            transition: left 0.2s ease, top 0.2s ease;
-        }
-
-        .heart {
-            color: #ff4d6d;
-            font-size: 2.5rem;
-            margin: 0 15px;
-            animation: float 3s infinite ease-in-out;
-            display: inline-block;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-
-        /* Celebration popup */
-        .celebration {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.92);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .celebration-content {
-            background: linear-gradient(145deg, #fff5f7, #ffffff);
-            padding: 35px 30px;
-            border-radius: 25px;
-            text-align: center;
-            max-width: 550px;
-            width: 95%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
-            border: 10px solid #ffafbd;
-        }
-
-        @keyframes popIn {
-            0% { transform: scale(0.5) rotate(-5deg); opacity: 0; }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
-        }
-
-        /* Photo frame optimized for 899x1599 */
-        .photo-frame {
-            width: 100%;
-            max-width: 350px;
-            height: 620px; /* Matches 899x1599 aspect ratio */
-            margin: 25px auto;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 12px solid #ffafbd;
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
-            background: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        #ourPhoto {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .photo-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: #ff4d6d;
-            font-size: 1.1rem;
-            padding: 20px;
-            text-align: center;
-            background: linear-gradient(45deg, #ffafbd, #ffc3a0);
-        }
-
-        .i-knew-it {
-            font-size: 3.5rem;
-            color: #ff4d6d;
-            margin: 20px 0;
-            animation: colorPulse 2s infinite alternate, gentleBounce 1.5s infinite alternate;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        @keyframes colorPulse {
-            0% { color: #ff4d6d; }
-            100% { color: #ff8fab; }
-        }
-
-        @keyframes gentleBounce {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-10px); }
-        }
-
-        .message {
-            font-size: 1.7rem;
-            color: #333;
-            margin-top: 25px;
-            line-height: 1.5;
-            font-weight: 600;
-            padding: 0 15px;
-        }
-
-        .instructions {
-            margin-top: 40px;
-            font-size: 1.3rem;
-            color: #666;
-            font-style: italic;
-            padding: 0 20px;
-        }
-
-        /* Confetti */
-        .confetti-piece {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            opacity: 0;
-            z-index: 1;
-        }
-
-        /* Close button */
-        #closeBtn {
-            margin-top: 30px;
-            background: linear-gradient(145deg, #ff4d6d, #ff6b81);
-            color: white;
-            padding: 15px 45px;
-            font-size: 1.4rem;
-            border-radius: 50px;
-            border: 3px solid #d32f2f;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4);
-        }
-
-        #closeBtn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 12px 25px rgba(255, 77, 109, 0.6);
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .container {
-                max-width: 700px;
-                padding: 35px 25px;
-            }
-            
-            h1 {
-                font-size: 3rem;
-            }
-            
-            .valentine-btn {
-                padding: 22px 60px;
-                font-size: 2rem;
-                min-width: 200px;
-            }
-            
-            .photo-frame {
-                max-width: 320px;
-                height: 570px;
-            }
-        }
-
-        @media (max-width: 850px) {
-            .buttons {
-                flex-direction: column;
-                gap: 30px;
-                align-items: center;
-            }
-            
-            .valentine-btn {
-                width: 100%;
-                max-width: 300px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .mobile-warning {
-                display: flex;
-            }
-            
-            .container, .celebration {
-                display: none;
-            }
-        }
-
-        @media (max-height: 700px) {
-            .celebration-content {
-                max-height: 85vh;
-                padding: 25px 20px;
-            }
-            
-            .photo-frame {
-                max-width: 280px;
-                height: 500px;
-                margin: 15px auto;
-            }
-            
-            .i-knew-it {
-                font-size: 2.8rem;
-                margin: 15px 0;
-            }
-        }
-
-        @media (min-width: 769px) {
-            .mobile-warning {
-                display: none;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        body { background: linear-gradient(135deg, #ffafbd, #ffc3a0); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .container { max-width: 800px; width: 100%; background: white; padding: 40px; border-radius: 25px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); text-align: center; }
+        h1 { color: #ff4d6d; font-size: 3.5rem; margin-bottom: 50px; }
+        .buttons { display: flex; justify-content: center; gap: 50px; margin-top: 60px; }
+        button { padding: 25px 70px; font-size: 2.2rem; border: none; border-radius: 60px; cursor: pointer; font-weight: bold; min-width: 220px; }
+        #yesBtn { background: #4CAF50; color: white; }
+        #noBtn { background: #ff4d6d; color: white; position: relative; }
+        .celebration { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100; justify-content: center; align-items: center; }
+        .celebration-content { background: white; padding: 35px; border-radius: 25px; max-width: 550px; width: 95%; text-align: center; }
+        .photo-frame { width: 350px; height: 620px; margin: 25px auto; border-radius: 20px; overflow: hidden; border: 12px solid #ffafbd; }
+        #ourPhoto { width: 100%; height: 100%; object-fit: cover; }
     </style>
 </head>
 <body>
-    <!-- Mobile warning -->
-    <div class="mobile-warning">
-        <i class="fas fa-desktop"></i>
-        <h2>Open on Desktop ❤️</h2>
-        <p>This Valentine's surprise works best on a desktop computer!</p>
-        <p>Please visit this page on a laptop or desktop for the magical experience.</p>
-        <p>The escaping button and all animations are optimized for mouse interactions.</p>
-        <p style="margin-top: 30px; font-size: 1.5rem; color: #ff4d6d;">
-            <i class="fas fa-heart"></i> See you on the bigger screen! <i class="fas fa-heart"></i>
-        </p>
-    </div>
-
-    <!-- Main content -->
     <div class="container">
-        <h1>Will you be my Valentine? <i class="heart fas fa-heart"></i></h1>
-        
+        <h1>Will you be my Valentine? ❤️</h1>
         <div class="buttons">
-            <button id="yesBtn" class="valentine-btn">YES!</button>
-            <button id="noBtn" class="valentine-btn">No</button>
-        </div>
-        
-        <div class="instructions">
-            <p>Try clicking "No"... if you can catch it! 😉</p>
-            <p style="margin-top: 10px; font-size: 1rem; color: #888;">(Use a mouse for the full experience)</p>
+            <button id="yesBtn">YES!</button>
+            <button id="noBtn">No</button>
         </div>
     </div>
 
-    <!-- Celebration Popup -->
     <div class="celebration" id="celebration">
         <div class="celebration-content">
-            <h2 class="i-knew-it">I Knew It! ❤️</h2>
-            
+            <h2 style="color:#ff4d6d;font-size:3.5rem;">I Knew It! ❤️</h2>
             <div class="photo-frame">
-                <img src="photo.jpeg" alt="Our Special Photo" id="ourPhoto" onerror="showPhotoError()">
-                <div class="photo-placeholder" id="photoPlaceholder" style="display: none;">
-                    <i class="fas fa-heart-broken" style="font-size: 3rem; margin-bottom: 20px;"></i>
-                    <p>Photo not loaded</p>
-                    <p style="font-size: 0.9rem; margin-top: 10px;">Make sure photo.jpeg is in the same folder</p>
-                </div>
+                <img src="photo.jpeg" alt="Our Photo" id="ourPhoto">
             </div>
-            
-            <p class="message">
-                Happy Valentine's, my love! 💕<br>
-                <br>
-                I LOVE YOU THE MOST!
-            </p>
-            
-            <button id="closeBtn">Close</button>
+            <p style="font-size:1.7rem;margin:25px 0;">Happy Valentine's Day! 💕</p>
+            <button id="closeBtn" style="background:#ff4d6d;color:white;padding:15px 45px;border-radius:50px;border:none;font-size:1.4rem;">Close</button>
         </div>
     </div>
 
     <script>
-        // Check if on mobile
-        function isMobile() {
-            return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
-        }
-
-        // Show mobile warning if needed
-        if (isMobile()) {
-            document.querySelector('.mobile-warning').style.display = 'flex';
-            document.querySelector('.container').style.display = 'none';
-        } else {
-            document.querySelector('.mobile-warning').style.display = 'none';
-            document.querySelector('.container').style.display = 'flex';
-        }
-
-        // Re-check on resize
-        window.addEventListener('resize', function() {
-            if (isMobile()) {
-                document.querySelector('.mobile-warning').style.display = 'flex';
-                document.querySelector('.container').style.display = 'none';
-                document.getElementById('celebration').style.display = 'none';
-            } else {
-                document.querySelector('.mobile-warning').style.display = 'none';
-                document.querySelector('.container').style.display = 'flex';
-            }
-        });
-
-        // Photo error handler
-        function showPhotoError() {
-            document.getElementById('ourPhoto').style.display = 'none';
-            document.getElementById('photoPlaceholder').style.display = 'flex';
-        }
-
-        // DOM elements
         const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
         const celebration = document.getElementById('celebration');
         const closeBtn = document.getElementById('closeBtn');
         const container = document.querySelector('.container');
-
-        let escapeCount = 0;
-        const escapeMessages = [
-            "Try again! 😜",
-            "You can't escape!",
-            "Too slow!",
-            "Catch me if you can!",
-            "Almost... but not quite!",
-            "Getting warmer!",
-            "One more try?",
-            "Okay, last chance!",
-            "Alright, you win!",
-            "Fine, I'll stay still... NOT!"
-        ];
-
+        
         // Make "No" button escape
         noBtn.addEventListener('mouseover', function() {
-            if (escapeCount > 20) return; // Stop after too many escapes
-            
-            escapeCount++;
-            
-            // Viewport dimensions
             const vw = window.innerWidth;
             const vh = window.innerHeight;
-            
-            // Button dimensions
             const btnWidth = noBtn.offsetWidth;
             const btnHeight = noBtn.offsetHeight;
-            
-            // Calculate safe area
             const margin = 30;
             const maxX = vw - btnWidth - margin;
             const maxY = vh - btnHeight - margin;
-            
-            // Random position
             const randomX = Math.max(margin, Math.floor(Math.random() * maxX));
             const randomY = Math.max(margin, Math.floor(Math.random() * maxY));
             
-            // Apply position
             noBtn.style.position = 'fixed';
             noBtn.style.left = `${randomX}px`;
             noBtn.style.top = `${randomY}px`;
-            noBtn.style.zIndex = '1000';
-            
-            // Faster movement over time
-            const speed = Math.max(0.05, 0.2 - (escapeCount * 0.01));
-            noBtn.style.transition = `left ${speed}s ease, top ${speed}s ease`;
-            
-            // Change text
-            const msgIndex = Math.min(escapeCount - 1, escapeMessages.length - 1);
-            noBtn.textContent = escapeMessages[msgIndex];
-            
-            // Shrink button
-            const scale = Math.max(0.4, 1 - (escapeCount * 0.03));
-            noBtn.style.transform = `scale(${scale})`;
         });
-
-        // Click "No" button
-        noBtn.addEventListener('click', function() {
-            document.querySelector('.i-knew-it').textContent = "You caught me! ❤️";
-            document.querySelector('.message').innerHTML = 
-                "Even when you say no, I know you mean yes!<br>Happy Valentine's Day, my love! 💖";
-            showCelebration();
-        });
-
-        // Click "Yes" button
-        yesBtn.addEventListener('click', showCelebration);
-
-        // Close celebration
-        closeBtn.addEventListener('click', function() {
-            celebration.style.display = 'none';
-            container.style.display = 'flex';
-            // Reset no button position
-            noBtn.style.position = 'static';
-            noBtn.style.transform = 'scale(1)';
-            noBtn.textContent = 'No';
-            escapeCount = 0;
-        });
-
-        // Show celebration function
+        
+        // Show celebration
         function showCelebration() {
             container.style.display = 'none';
             celebration.style.display = 'flex';
-            createConfetti();
-            playCelebrationSound();
-        }
-
-        // Create confetti
-        function createConfetti() {
-            const colors = ['#ff4d6d', '#4CAF50', '#FFC107', '#2196F3', '#9C27B0'];
-            const confettiCount = 150;
-            
-            for (let i = 0; i < confettiCount; i++) {
+            // Create confetti
+            for(let i=0; i<100; i++) {
                 setTimeout(() => {
                     const confetti = document.createElement('div');
-                    confetti.className = 'confetti-piece';
-                    
-                    // Random properties
-                    const color = colors[Math.floor(Math.random() * colors.length)];
-                    const size = Math.random() * 12 + 6;
-                    const left = Math.random() * 100;
-                    const delay = Math.random() * 1;
-                    const duration = Math.random() * 2 + 2;
-                    
-                    // Styles
-                    confetti.style.backgroundColor = color;
-                    confetti.style.width = `${size}px`;
-                    confetti.style.height = `${size}px`;
-                    confetti.style.left = `${left}vw`;
-                    confetti.style.top = '-30px';
-                    confetti.style.opacity = '1';
-                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
-                    
-                    // Animation
-                    confetti.style.animation = `confettiFall ${duration}s linear ${delay}s forwards`;
-                    
-                    // Add to celebration
+                    confetti.style.cssText = `position:absolute; width:10px; height:10px; background:#ff4d6d; border-radius:50%; left:${Math.random()*100}vw; top:-20px; animation:fall 2s linear;`;
                     celebration.appendChild(confetti);
-                    
-                    // Remove after animation
-                    setTimeout(() => {
-                        if (confetti.parentNode) {
-                            confetti.parentNode.removeChild(confetti);
-                        }
-                    }, (delay + duration) * 1000);
-                }, i * 10);
+                    setTimeout(() => confetti.remove(), 2000);
+                }, i*20);
             }
-            
-            // Add animation CSS
-            if (!document.querySelector('#confetti-animation')) {
-                const style = document.createElement('style');
-                style.id = 'confetti-animation';
-                style.textContent = `
-                    @keyframes confettiFall {
-                        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-                        100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-                    }
-                `;
-                document.head.appendChild(style);
-            }
+            const style = document.createElement('style');
+            style.textContent = `@keyframes fall { to { transform: translateY(100vh) rotate(360deg); opacity:0; } }`;
+            document.head.appendChild(style);
         }
-
-        // Play celebration sound
-        function playCelebrationSound() {
-            try {
-                // Create Web Audio context
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                const audioCtx = new AudioContext();
-                
-                // Play multiple tones for celebration
-                for (let i = 0; i < 4; i++) {
-                    setTimeout(() => {
-                        const oscillator = audioCtx.createOscillator();
-                        const gainNode = audioCtx.createGain();
-                        
-                        oscillator.connect(gainNode);
-                        gainNode.connect(audioCtx.destination);
-                        
-                        // Cheerful frequencies
-                        const freq = [523.25, 659.25, 783.99, 1046.50][i] || 523.25;
-                        oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                        
-                        gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-                        
-                        oscillator.start(audioCtx.currentTime);
-                        oscillator.stop(audioCtx.currentTime + 0.3);
-                    }, i * 100);
-                }
-            } catch (e) {
-                // Audio not supported - continue silently
-            }
-        }
-
-        // Check photo load on startup
-        window.addEventListener('load', function() {
-            const photo = document.getElementById('ourPhoto');
-            if (photo.complete && photo.naturalHeight === 0) {
-                showPhotoError();
-            }
+        
+        yesBtn.addEventListener('click', showCelebration);
+        noBtn.addEventListener('click', showCelebration);
+        closeBtn.addEventListener('click', () => {
+            celebration.style.display = 'none';
+            container.style.display = 'block';
+            noBtn.style.position = 'static';
         });
     </script>
 </body>
